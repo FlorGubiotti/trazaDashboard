@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SucursalFacadeImp extends BaseFacadeImp<Sucursal, SucursalDto,Long> implements Sucursalfacade {
     private static final Logger logger = LoggerFactory.getLogger(BaseServiceImp.class);
@@ -38,5 +40,12 @@ public class SucursalFacadeImp extends BaseFacadeImp<Sucursal, SucursalDto,Long>
 
         var sucursalActualizada=sucursalService.actualizarSucursal(id,sucursal);
         return baseMapper.toDTO(sucursalActualizada);
+    }
+
+    public List<SucursalDto> findSurcursalesByEmpresa(Long empresaId) {
+        return sucursalService.findSucursalesByEmpresa(empresaId)
+                .stream()
+                .map((value) -> baseMapper.toDTO(value))
+                .toList();
     }
 }
