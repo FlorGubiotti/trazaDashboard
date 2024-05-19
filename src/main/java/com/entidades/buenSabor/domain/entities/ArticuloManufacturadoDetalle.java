@@ -1,7 +1,6 @@
 package com.entidades.buenSabor.domain.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.envers.Audited;
@@ -17,6 +16,7 @@ import org.hibernate.envers.Audited;
 public class ArticuloManufacturadoDetalle extends Base{
     private Integer cantidad;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "articulo_insumo_id")
     private ArticuloInsumo articuloInsumo;
 }
