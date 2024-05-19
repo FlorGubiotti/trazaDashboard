@@ -10,4 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ArticuloDto extends BaseDto{
+    protected String denominacion;
+    protected Double precioVenta;
 }
