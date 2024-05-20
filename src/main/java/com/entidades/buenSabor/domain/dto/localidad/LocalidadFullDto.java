@@ -1,7 +1,7 @@
 package com.entidades.buenSabor.domain.dto.localidad;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
-import com.entidades.buenSabor.domain.dto.provincia.ProvinciaDto;
+import com.entidades.buenSabor.domain.dto.provincia.ProvinciaFullDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class LocalidadDto extends BaseDto {
+public class LocalidadFullDto extends BaseDto {
 
     private String nombre;
-    private ProvinciaDto provincia;
+    private ProvinciaFullDto provincia;
 }

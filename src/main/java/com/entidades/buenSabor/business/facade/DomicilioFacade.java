@@ -1,7 +1,7 @@
 package com.entidades.buenSabor.business.facade;
 
 import com.entidades.buenSabor.business.facade.Base.BaseFacade;
-import com.entidades.buenSabor.domain.dto.domicilio.DomicilioDto;
+import com.entidades.buenSabor.domain.dto.domicilio.DomicilioFullDto;
 
-public interface DomicilioFacade extends BaseFacade<DomicilioDto, Long> {
+public interface DomicilioFacade extends BaseFacade<DomicilioFullDto, Long> {
 }

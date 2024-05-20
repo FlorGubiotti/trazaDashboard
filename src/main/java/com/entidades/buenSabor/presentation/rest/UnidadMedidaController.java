@@ -1,7 +1,7 @@
 package com.entidades.buenSabor.presentation.rest;
 
 import com.entidades.buenSabor.business.facade.Imp.UnidadMedidaFacadeImp;
-import com.entidades.buenSabor.domain.dto.unidadMedida.UnidadMedidaDto;
+import com.entidades.buenSabor.domain.dto.unidadMedida.UnidadMedidaFullDto;
 import com.entidades.buenSabor.domain.entities.UnidadMedida;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/unidadMedida")
 @CrossOrigin("*")
-public class UnidadMedidaController extends BaseControllerImp<UnidadMedida, UnidadMedidaDto, Long, UnidadMedidaFacadeImp> {
+public class UnidadMedidaController extends BaseControllerImp<UnidadMedida, UnidadMedidaFullDto, Long, UnidadMedidaFacadeImp> {
      public UnidadMedidaController(UnidadMedidaFacadeImp facade) {
          super(facade);
      }

@@ -1,10 +1,10 @@
 package com.entidades.buenSabor.business.mapper;
 
-import com.entidades.buenSabor.domain.dto.pais.PaisDto;
+import com.entidades.buenSabor.domain.dto.pais.PaisFullDto;
 import com.entidades.buenSabor.domain.entities.Pais;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface PaisMapper extends BaseMapper<Pais, PaisDto>{
+public interface PaisMapper extends BaseMapper<Pais, PaisFullDto>{
 
 }

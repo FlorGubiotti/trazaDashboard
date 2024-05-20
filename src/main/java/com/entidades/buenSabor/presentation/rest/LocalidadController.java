@@ -1,7 +1,7 @@
 package com.entidades.buenSabor.presentation.rest;
 
 import com.entidades.buenSabor.business.facade.Imp.LocalidadFacadeImp;
-import com.entidades.buenSabor.domain.dto.localidad.LocalidadDto;
+import com.entidades.buenSabor.domain.dto.localidad.LocalidadFullDto;
 import com.entidades.buenSabor.domain.entities.Localidad;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/localidad")
 @CrossOrigin("*")
-public class LocalidadController extends BaseControllerImp<Localidad, LocalidadDto, Long, LocalidadFacadeImp> {
+public class LocalidadController extends BaseControllerImp<Localidad, LocalidadFullDto, Long, LocalidadFacadeImp> {
 
     public LocalidadController(LocalidadFacadeImp facade) {
         super(facade);
@@ -22,7 +22,7 @@ public class LocalidadController extends BaseControllerImp<Localidad, LocalidadD
     private static final Logger logger = LoggerFactory.getLogger(LocalidadController.class);
 
     @GetMapping("findByProvincia/{idProvincia}")
-    public ResponseEntity<List<LocalidadDto>> getByProvincia(@PathVariable Long idProvincia) {
+    public ResponseEntity<List<LocalidadFullDto>> getByProvincia(@PathVariable Long idProvincia) {
         logger.info("INICIO GET BY PROVINCIA");
         return ResponseEntity.ok(facade.findByProvinciaId(idProvincia));
     }
