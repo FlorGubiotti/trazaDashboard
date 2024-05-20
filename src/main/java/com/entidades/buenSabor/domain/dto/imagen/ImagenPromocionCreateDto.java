@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ImagenPromocionCreateDto extends BaseDto {
+
     private Long idPromocion;
     //de imagenArticulo
     private ImagenPromocionFullDto denominacion;

@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel =  "spring", uses = LocalidadMapper.class)
 public interface ArticuloManufacturadoDetalleMapper extends BaseMapper<ArticuloManufacturadoDetalle, ArticuloManufacturadoDetalleFullDto> {
 
-    @Mapping(source = "articuloInsumo.id", target="articuloInsumoId")
+    @Mapping(source = "articuloInsumo.id", target="articuloInsumo.id")
     ArticuloManufacturadoDetalleFullDto toDTO(ArticuloManufacturadoDetalle source);
 
     @InheritInverseConfiguration
