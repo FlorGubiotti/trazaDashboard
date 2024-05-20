@@ -1,5 +1,6 @@
-package com.entidades.buenSabor.domain.dto;
+package com.entidades.buenSabor.domain.dto.pais;
 
+import com.entidades.buenSabor.domain.dto.BaseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ArticuloDto extends BaseDto{
-    protected String denominacion;
-    protected Double precioVenta;
+public class PaisCreateDto extends BaseDto {
+    private String nombre;
 }

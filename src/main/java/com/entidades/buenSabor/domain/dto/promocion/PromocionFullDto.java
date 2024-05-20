@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class PromocionDto extends BaseDto {
+public class PromocionFullDto extends BaseDto {
     private String denominacion;
     private LocalDate fechaDesde;
     private LocalDate fechaHasta;

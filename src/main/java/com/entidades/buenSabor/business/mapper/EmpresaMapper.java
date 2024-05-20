@@ -1,18 +1,18 @@
 package com.entidades.buenSabor.business.mapper;
 
 
-import com.entidades.buenSabor.domain.dto.empresa.EmpresaDto;
+import com.entidades.buenSabor.domain.dto.empresa.EmpresaCreateDto;
 
-import com.entidades.buenSabor.domain.dto.empresa.EmpresaLargeDto;
+import com.entidades.buenSabor.domain.dto.empresa.EmpresaFullDto;
 import com.entidades.buenSabor.domain.entities.Empresa;
 
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface EmpresaMapper extends BaseMapper<Empresa, EmpresaDto> {
+public interface EmpresaMapper extends BaseMapper<Empresa, EmpresaCreateDto> {
 
 
-    EmpresaLargeDto toLargeDto(Empresa empresa);
+    EmpresaFullDto toLargeDto(Empresa empresa);
 
 
 }

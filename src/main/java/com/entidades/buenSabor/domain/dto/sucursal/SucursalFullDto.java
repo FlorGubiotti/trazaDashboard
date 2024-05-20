@@ -1,8 +1,8 @@
 package com.entidades.buenSabor.domain.dto.sucursal;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
-import com.entidades.buenSabor.domain.dto.domicilio.DomicilioDto;
-import com.entidades.buenSabor.domain.dto.empresa.EmpresaDto;
+import com.entidades.buenSabor.domain.dto.domicilio.DomicilioFullDto;
+import com.entidades.buenSabor.domain.dto.empresa.EmpresaCreateDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,15 +14,13 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class SucursalDto extends BaseDto {
+public class SucursalFullDto extends BaseDto {
 
     private String nombre;
     private LocalTime horarioApertura;
     private LocalTime horarioCierre;
     private boolean esCasaMatriz;
-    private DomicilioDto domicilio;
 
-    private EmpresaDto empresa;
-
-
+    private DomicilioFullDto domicilio;
+    private EmpresaCreateDto empresa;
 }

@@ -1,22 +1,17 @@
-package com.entidades.buenSabor.domain.dto.empresa;
+package com.entidades.buenSabor.domain.dto.provincia;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
+import com.entidades.buenSabor.domain.dto.pais.PaisFullDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class EmpresaDto extends BaseDto {
-
+public class ProvinciaFullDto extends BaseDto {
     private String nombre;
-    private String razonSocial;
-    private Long cuil;
-
+    private PaisFullDto pais;
 }
-

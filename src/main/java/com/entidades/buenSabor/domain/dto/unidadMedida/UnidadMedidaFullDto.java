@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UnidadMedidaDto extends BaseDto {
+public class UnidadMedidaFullDto extends BaseDto {
 
     private String denominacion;
 }
