@@ -1,5 +1,6 @@
-package com.entidades.buenSabor.domain.dto;
+package com.entidades.buenSabor.domain.dto.promocion;
 
+import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.enums.TipoPromocion;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class PromocionDto extends BaseDto{
+public class PromocionDto extends BaseDto {
     private String denominacion;
     private LocalDate fechaDesde;
     private LocalDate fechaHasta;

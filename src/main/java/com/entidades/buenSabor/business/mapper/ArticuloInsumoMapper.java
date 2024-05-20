@@ -1,6 +1,6 @@
 package com.entidades.buenSabor.business.mapper;
 
-import com.entidades.buenSabor.domain.dto.ArticuloInsumoDto;
+import com.entidades.buenSabor.domain.dto.articuloInsumo.ArticuloInsumoDto;
 import com.entidades.buenSabor.domain.entities.ArticuloInsumo;
 import org.mapstruct.Mapper;
 

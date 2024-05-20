@@ -4,7 +4,7 @@ package com.entidades.buenSabor.presentation.rest;
 import com.entidades.buenSabor.business.facade.Imp.SucursalFacadeImp;
 
 import com.entidades.buenSabor.business.service.Base.BaseServiceImp;
-import com.entidades.buenSabor.domain.dto.SucursalDto;
+import com.entidades.buenSabor.domain.dto.sucursal.SucursalDto;
 
 import com.entidades.buenSabor.domain.entities.Sucursal;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;

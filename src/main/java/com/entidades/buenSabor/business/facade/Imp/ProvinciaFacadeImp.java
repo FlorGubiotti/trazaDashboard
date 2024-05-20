@@ -5,7 +5,7 @@ import com.entidades.buenSabor.business.facade.ProvinciaFacade;
 import com.entidades.buenSabor.business.mapper.BaseMapper;
 import com.entidades.buenSabor.business.service.Base.BaseService;
 import com.entidades.buenSabor.business.service.ProvinciaService;
-import com.entidades.buenSabor.domain.dto.ProvinciaDto;
+import com.entidades.buenSabor.domain.dto.provincia.ProvinciaDto;
 import com.entidades.buenSabor.domain.entities.Provincia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
