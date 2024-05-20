@@ -1,8 +1,7 @@
 package com.entidades.buenSabor.presentation.rest;
 
 import com.entidades.buenSabor.business.facade.Imp.ArticuloInsumoFacadeImp;
-import com.entidades.buenSabor.business.facade.Imp.ArticuloManufacturadoDetalleFacadeImp;
-import com.entidades.buenSabor.domain.dto.ArticuloInsumoDto;
+import com.entidades.buenSabor.domain.dto.articuloInsumo.ArticuloInsumoDto;
 import com.entidades.buenSabor.domain.entities.ArticuloInsumo;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import org.springframework.web.bind.annotation.CrossOrigin;

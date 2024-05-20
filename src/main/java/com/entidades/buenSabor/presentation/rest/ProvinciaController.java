@@ -1,7 +1,7 @@
 package com.entidades.buenSabor.presentation.rest;
 
 import com.entidades.buenSabor.business.facade.Imp.ProvinciaFacadeImp;
-import com.entidades.buenSabor.domain.dto.ProvinciaDto;
+import com.entidades.buenSabor.domain.dto.provincia.ProvinciaDto;
 import com.entidades.buenSabor.domain.entities.Provincia;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import org.slf4j.Logger;

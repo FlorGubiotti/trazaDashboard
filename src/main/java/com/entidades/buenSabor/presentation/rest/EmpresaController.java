@@ -2,9 +2,9 @@ package com.entidades.buenSabor.presentation.rest;
 
 import com.entidades.buenSabor.business.facade.Imp.EmpresaFacadeImpl;
 
-import com.entidades.buenSabor.domain.dto.EmpresaDto;
+import com.entidades.buenSabor.domain.dto.empresa.EmpresaDto;
 
-import com.entidades.buenSabor.domain.dto.EmpresaLargeDto;
+import com.entidades.buenSabor.domain.dto.empresa.EmpresaLargeDto;
 import com.entidades.buenSabor.domain.entities.Empresa;
 
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;

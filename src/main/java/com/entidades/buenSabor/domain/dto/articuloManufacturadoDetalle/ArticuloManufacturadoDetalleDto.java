@@ -1,8 +1,7 @@
-package com.entidades.buenSabor.domain.dto;
+package com.entidades.buenSabor.domain.dto.articuloManufacturadoDetalle;
 
-import jakarta.persistence.Entity;
+import com.entidades.buenSabor.domain.dto.BaseDto;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
 @AllArgsConstructor

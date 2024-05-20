@@ -1,6 +1,6 @@
 package com.entidades.buenSabor.business.mapper;
 
-import com.entidades.buenSabor.domain.dto.ArticuloManufacturadoDetalleDto;
+import com.entidades.buenSabor.domain.dto.articuloManufacturadoDetalle.ArticuloManufacturadoDetalleDto;
 import com.entidades.buenSabor.domain.entities.ArticuloManufacturadoDetalle;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
