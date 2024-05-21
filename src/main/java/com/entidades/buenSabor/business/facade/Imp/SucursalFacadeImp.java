@@ -11,7 +11,12 @@ import com.entidades.buenSabor.domain.entities.Sucursal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class SucursalFacadeImp extends BaseFacadeImp<Sucursal, SucursalFullDto,Long> implements Sucursalfacade {
@@ -37,5 +42,20 @@ public class SucursalFacadeImp extends BaseFacadeImp<Sucursal, SucursalFullDto,L
 
         var sucursalActualizada=sucursalService.actualizarSucursal(id,sucursal);
         return baseMapper.toDTO(sucursalActualizada);
+    }
+
+    @Override
+    public ResponseEntity<List<Map<String, Object>>> getAllImagesBySucursalId(Long id) {
+        return sucursalService.getAllImagesBySucursalId(id);
+    }
+
+    @Override
+    public ResponseEntity<String> uploadImages(MultipartFile[] files, Long id) {
+        return sucursalService.uploadImages(files,id);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteImage(String publicId, Long id) {
+        return sucursalService.deleteImage(publicId, id);
     }
 }
