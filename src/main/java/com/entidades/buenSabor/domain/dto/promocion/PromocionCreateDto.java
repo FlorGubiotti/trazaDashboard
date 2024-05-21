@@ -25,5 +25,5 @@ public class PromocionCreateDto extends BaseDto {
     private String descripcionDescuento;
     private Double precioPromocional;
     private TipoPromocion tipoPromocion;
-    private Set<ImagenDto> imagenes;
+//    private Set<ImagenDto> imagenes;
 }
