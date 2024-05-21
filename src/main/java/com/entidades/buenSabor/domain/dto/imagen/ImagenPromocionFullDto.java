@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ImagenPromocionFullDto extends BaseDto {
+    private String url;
     private PromocionFullDto promocion;
     private ImagenArticuloFullDto denominacion;
 }

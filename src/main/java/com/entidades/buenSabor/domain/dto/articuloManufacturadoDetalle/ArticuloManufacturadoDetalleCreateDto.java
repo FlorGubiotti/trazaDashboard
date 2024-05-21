@@ -13,5 +13,5 @@ import lombok.Setter;
 public class ArticuloManufacturadoDetalleCreateDto extends BaseDto {
     private Integer cantidad;
     //de articuloInsumo
-    private Long articuloInsumoId;
+    private Long articuloInsumo;
 }
