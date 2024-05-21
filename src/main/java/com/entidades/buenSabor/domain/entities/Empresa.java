@@ -1,11 +1,9 @@
 package com.entidades.buenSabor.domain.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.envers.NotAudited;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,4 +26,8 @@ public class Empresa extends Base{
     @Builder.Default
     private Set<Sucursal> sucursales = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_empresa")
+    @NotAudited
+    private Set<ImagenEmpresa> imagenes;
 }

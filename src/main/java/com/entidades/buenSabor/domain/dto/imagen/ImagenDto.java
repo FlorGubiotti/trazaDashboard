@@ -6,13 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class ImagenPromocionCreateDto extends BaseDto {
-
-    private Long idPromocion;
-    //de imagenArticulo
-    private ImagenPromocionFullDto denominacion;
+@AllArgsConstructor
+@NoArgsConstructor
+public class ImagenDto extends BaseDto {
+    private String name;
+    private String url;
 }

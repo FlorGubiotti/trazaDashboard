@@ -2,11 +2,14 @@ package com.entidades.buenSabor.domain.dto.articuloInsumo;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.categoria.CategoriaFullDto;
+import com.entidades.buenSabor.domain.dto.imagen.ImagenDto;
 import com.entidades.buenSabor.domain.dto.unidadMedida.UnidadMedidaFullDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,4 +28,6 @@ public class ArticuloInsumoFullDto extends BaseDto {
     private UnidadMedidaFullDto unidadMedida;
     //de categoria
     private CategoriaFullDto categoria;
+    private Set<ImagenDto> imagenes;
+
 }

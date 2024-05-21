@@ -2,7 +2,7 @@ package com.entidades.buenSabor.domain.dto.articuloManufacturado;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.articuloManufacturadoDetalle.ArticuloManufacturadoDetalleCreateDto;
-import com.entidades.buenSabor.domain.dto.imagen.ImagenArticuloFullDto;
+import com.entidades.buenSabor.domain.dto.imagen.ImagenDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,7 @@ public class ArticuloManufacturadoCreateDto extends BaseDto {
     private String denominacion;
     private Double precioVenta;
     //de imagenArticulo
-    private Set<ImagenArticuloFullDto> imagenes;
+    private Set<ImagenDto> imagenes;
     //propios de la entidad
     private String descripcion;
     private Integer tiempoEstimadoMinutos;
