@@ -19,7 +19,7 @@ public class ArticuloManufacturadoCreateDto extends BaseDto {
     private String denominacion;
     private Double precioVenta;
     //de imagenArticulo
-    private Set<ImagenDto> imagenes;
+//    private Set<ImagenDto> imagenes;
     //propios de la entidad
     private String descripcion;
     private Integer tiempoEstimadoMinutos;

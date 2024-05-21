@@ -22,6 +22,6 @@ public class SucursalCreateDto extends BaseDto {
 
     private Long idDomicilio;
     private Long idEmpresa;
-    private Set<ImagenDto> imagenes;
+//    private Set<ImagenDto> imagenes;
 
 }
