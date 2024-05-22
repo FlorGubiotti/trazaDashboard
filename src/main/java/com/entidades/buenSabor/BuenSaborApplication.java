@@ -29,10 +29,15 @@ public class BuenSaborApplication {
 
 	@Autowired
 	private ImagenEmpresaRepository imagenEmpresaRepository;
+
+	@Autowired
+	private  UnidadMedidaRepository unidadMedidaRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BuenSaborApplication.class, args);
 		logger.info("Estoy activo en el main");
 	}
+
 
 	@Bean
 	@Transactional
@@ -50,6 +55,17 @@ public class BuenSaborApplication {
 					.name("Logo.png")
 					.build();
 			imagenEmpresaRepository.save(imagen);
+
+					// Crear Unidades de medida
+					UnidadMedida unidadMedidaLitros = UnidadMedida.builder().denominacion("Litros").build();
+					UnidadMedida unidadMedidaGramos = UnidadMedida.builder().denominacion("Gramos").build();
+					UnidadMedida unidadMedidaCantidad = UnidadMedida.builder().denominacion("Cantidad").build();
+					UnidadMedida unidadMedidaPorciones = UnidadMedida.builder().denominacion("Porciones").build();
+					unidadMedidaRepository.save(unidadMedidaLitros);
+					unidadMedidaRepository.save(unidadMedidaGramos);
+					unidadMedidaRepository.save(unidadMedidaCantidad);
+					unidadMedidaRepository.save(unidadMedidaPorciones);
+
 		};
 	}
 
