@@ -1,7 +1,9 @@
 package com.entidades.buenSabor.domain.dto.articuloInsumo;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
+import com.entidades.buenSabor.domain.dto.categoria.CategoriaCreateDto;
 import com.entidades.buenSabor.domain.dto.imagen.ImagenDto;
+import com.entidades.buenSabor.domain.dto.unidadMedida.UnidadMedidaFullDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +25,8 @@ public class ArticuloInsumoCreateDto extends BaseDto {
     private Integer stockMaximo;
     private Boolean esParaElaborar;
     //de unidadMedida
-    private Long idUnidadMedida;
+    private UnidadMedidaFullDto unidadMedida;
     //de categoria
-    private Long idCategoria;
+    private CategoriaCreateDto categoria;
 //    private Set<ImagenDto> imagenes;
 }
