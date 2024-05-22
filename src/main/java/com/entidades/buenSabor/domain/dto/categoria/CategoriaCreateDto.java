@@ -18,6 +18,7 @@ import java.util.Set;
 public class CategoriaCreateDto extends BaseDto {
 
     private String denominacion;
+    private Set<SubCategoriaFullDto> subCategorias;
     private Set<SucursalShortDto> sucursales;
     private boolean esInsumo;
 }
