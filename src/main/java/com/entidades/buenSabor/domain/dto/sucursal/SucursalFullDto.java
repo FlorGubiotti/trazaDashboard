@@ -20,9 +20,9 @@ import java.util.Set;
 public class SucursalFullDto extends BaseDto {
 
     private String nombre;
-    @Schema(type = "string", format = "time", pattern = "HH:mm", description = "Horario de apertura en formato HH:mm")
+    @Schema(type = "string", format = "time", pattern = "HH:mm:ss", description = "Horario de apertura en formato HH:mm:ss")
     private LocalTime horarioApertura;
-    @Schema(type = "string", format = "time", pattern = "HH:mm", description = "Horario de cierre en formato HH:mm")
+    @Schema(type = "string", format = "time", pattern = "HH:mm:ss", description = "Horario de cierre en formato HH:mm:ss")
     private LocalTime horarioCierre;
     private boolean esCasaMatriz;
 
