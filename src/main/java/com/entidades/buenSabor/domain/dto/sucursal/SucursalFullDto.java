@@ -4,6 +4,7 @@ import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.domicilio.DomicilioFullDto;
 import com.entidades.buenSabor.domain.dto.empresa.EmpresaCreateDto;
 import com.entidades.buenSabor.domain.dto.imagen.ImagenDto;
+import com.entidades.buenSabor.domain.entities.Categoria;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -28,6 +30,7 @@ public class SucursalFullDto extends BaseDto {
 
     private DomicilioFullDto domicilio;
     private EmpresaCreateDto empresa;
+    private Set<Categoria> categorias = new HashSet<>();
 //    private Set<ImagenDto> imagenes;
 
 }
