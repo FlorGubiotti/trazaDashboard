@@ -32,5 +32,5 @@ public class ArticuloManufacturadoFullDto extends BaseDto {
     //de unidad medida
     private UnidadMedidaFullDto unidadMedida;
     //de articuloManufacturadoDetalle
-    private Set<ArticuloManufacturadoDetalleShorDto> articuloManufacturadoDetalles;
+    private Set<ArticuloManufacturadoDetalleFullDto> articuloManufacturadoDetalles;
 }
