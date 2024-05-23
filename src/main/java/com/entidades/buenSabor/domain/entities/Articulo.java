@@ -24,7 +24,7 @@ public abstract class Articulo  extends Base {
     protected Double precioVenta;
 
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "articulo_id")
     @Builder.Default
     @NotAudited
