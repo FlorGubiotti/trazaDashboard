@@ -1,7 +1,6 @@
 package com.entidades.buenSabor.domain.dto.articuloInsumo;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
-import com.entidades.buenSabor.domain.dto.categoria.CategoriaCreateDto;
 import com.entidades.buenSabor.domain.dto.categoria.CategoriaFullDto;
 import com.entidades.buenSabor.domain.dto.imagen.ImagenDto;
 import com.entidades.buenSabor.domain.dto.unidadMedida.UnidadMedidaFullDto;
@@ -28,7 +27,7 @@ public class ArticuloInsumoFullDto extends BaseDto {
     //de unidadMedida
     private UnidadMedidaFullDto unidadMedida;
     //de categoria
-    private CategoriaCreateDto categoria;
+    private CategoriaFullDto categoria;
     private Set<ImagenDto> imagenes;
 
 }
