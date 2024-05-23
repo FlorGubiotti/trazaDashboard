@@ -48,12 +48,12 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
         }    }
 
     @Override
-    public ResponseEntity<String> uploadImages(MultipartFile[] files, Long idArticuloInsumo) {
+    public ResponseEntity<String> uploadImages(MultipartFile[] files, Long idArticuloManufacturado) {
         List<String> urls = new ArrayList<>();
-        var insumo = baseRepository.getById(idArticuloInsumo);
+        var articuloManufacturado = baseRepository.getById(idArticuloManufacturado);
         //por medio de un condicional limitamos la carga de imagenes a un maximo de 3 por aticulo
         //en caso de tratar de excer ese limite arroja un codigo 413 con el mensaje La cantidad maxima de imagenes es 3
-        if(insumo.getImagenes().size() >= 3)
+        if(articuloManufacturado.getImagenes().size() >= 3)
             return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body("La cantidad maxima de imagenes es 3");
         try {
             // Iterar sobre cada archivo recibido
@@ -74,7 +74,7 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
                 }
 
                 //Se asignan las imagenes al insumo
-                insumo.getImagenes().add(image);
+                articuloManufacturado.getImagenes().add(image);
                 //Se guarda la imagen en la base de datos
                 imagenArticuloRepository.save(image);
                 // Agregar la URL de la imagen a la lista de URLs subidas
@@ -82,7 +82,7 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
             }
 
             //se actualiza el insumo en la base de datos con las imagenes
-            baseRepository.save(insumo);
+            baseRepository.save(articuloManufacturado);
 
             // Convertir la lista de URLs a un objeto JSON y devolver como ResponseEntity con estado OK (200)
             return new ResponseEntity<>("{\"status\":\"OK\", \"urls\":" + urls + "}", HttpStatus.OK);
