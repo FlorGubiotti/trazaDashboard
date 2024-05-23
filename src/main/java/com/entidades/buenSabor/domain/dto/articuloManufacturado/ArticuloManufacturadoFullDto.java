@@ -2,6 +2,8 @@ package com.entidades.buenSabor.domain.dto.articuloManufacturado;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.articuloManufacturadoDetalle.ArticuloManufacturadoDetalleFullDto;
+import com.entidades.buenSabor.domain.dto.articuloManufacturadoDetalle.ArticuloManufacturadoDetalleShorDto;
+import com.entidades.buenSabor.domain.dto.categoria.CategoriaShortDto;
 import com.entidades.buenSabor.domain.dto.imagen.ImagenDto;
 import com.entidades.buenSabor.domain.dto.unidadMedida.UnidadMedidaFullDto;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,8 @@ public class ArticuloManufacturadoFullDto extends BaseDto {
     private Double precioVenta;
     //de imagenArticulo
     private Set<ImagenDto> imagenes;
+    //de categoria
+    private CategoriaShortDto categoria;
     //propios de la entidad
     private String descripcion;
     private Integer tiempoEstimadoMinutos;
@@ -28,5 +32,5 @@ public class ArticuloManufacturadoFullDto extends BaseDto {
     //de unidad medida
     private UnidadMedidaFullDto unidadMedida;
     //de articuloManufacturadoDetalle
-    private Set<ArticuloManufacturadoDetalleFullDto> articuloManufacturadoDetalles;
+    private Set<ArticuloManufacturadoDetalleShorDto> articuloManufacturadoDetalles;
 }
