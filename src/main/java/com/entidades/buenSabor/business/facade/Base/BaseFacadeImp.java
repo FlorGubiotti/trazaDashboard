@@ -47,7 +47,6 @@ public abstract class BaseFacadeImp <E extends Base,D extends BaseDto,ID extends
     }
 
     public void deleteById(ID id){
-        var entity = baseService.getById(id);
         baseService.deleteById(id);
     }
 
