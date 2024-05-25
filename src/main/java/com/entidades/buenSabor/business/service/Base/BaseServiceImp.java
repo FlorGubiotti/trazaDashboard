@@ -39,9 +39,13 @@ public abstract class BaseServiceImp<E extends Base,ID extends Serializable> imp
 
     @Override
     public void deleteById(ID id){
-        var entity = getById(id);
-        baseRepository.delete(entity);
-        logger.info("Borrada logicamente entidad {}",entity);
+        var entity = baseRepository.findById(id);
+
+        entity.ifPresent((value) -> {
+            baseRepository.delete(value);
+            logger.info("Borrada logicamente entidad {}",value);
+        });
+
     }
 
     @Override
