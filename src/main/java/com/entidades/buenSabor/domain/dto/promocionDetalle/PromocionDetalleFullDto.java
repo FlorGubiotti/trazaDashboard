@@ -17,5 +17,5 @@ import java.util.Set;
 @Setter
 public class PromocionDetalleFullDto extends BaseDto {
     private Integer cantidad;
-    private Set<ArticuloManufacturadoShortDto> articulosManufacturados;
+    private ArticuloManufacturadoShortDto articuloManufacturado;
 }
