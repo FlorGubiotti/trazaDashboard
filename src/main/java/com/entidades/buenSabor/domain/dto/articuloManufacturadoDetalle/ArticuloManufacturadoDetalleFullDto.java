@@ -2,6 +2,7 @@ package com.entidades.buenSabor.domain.dto.articuloManufacturadoDetalle;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.articuloInsumo.ArticuloInsumoFullDto;
+import com.entidades.buenSabor.domain.dto.articuloInsumo.ArticuloInsumoShortDto;
 import lombok.*;
 
 @NoArgsConstructor
@@ -10,5 +11,5 @@ import lombok.*;
 @Setter
 public class ArticuloManufacturadoDetalleFullDto extends BaseDto {
     private Integer cantidad;
-    private ArticuloInsumoFullDto articuloInsumo;
+    private ArticuloInsumoShortDto articuloInsumo;
 }

@@ -1,6 +1,8 @@
 package com.entidades.buenSabor.domain.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -17,6 +19,7 @@ public class PromocionDetalle extends Base{
 
     private int cantidad;
 
-    @ManyToOne
-    private Articulo articulo;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "articuloManufacturado_id")
+    private ArticuloManufacturado articuloManufacturado;
 }

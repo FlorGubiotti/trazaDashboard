@@ -1,4 +1,4 @@
-package com.entidades.buenSabor.domain.dto.articuloInsumo;
+package com.entidades.buenSabor.domain.dto.articuloManufacturado;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.categoria.CategoriaShortDto;
@@ -12,15 +12,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ArticuloInsumoShortDto extends BaseDto {
+public class ArticuloManufacturadoShortDto extends BaseDto {
     //de articulo
     private String denominacion;
     private String precioVenta;
     //propios de la clase
-    private Double precioCompra;
-    private Integer stockActual;
-    private Integer stockMaximo;
-    private Boolean esParaElaborar;
+    private String descripcion;
+    private Integer tiempoEstimadoMinutos;
+    private String preparacion;
     private UnidadMedidaFullDto unidadMedida;
     private CategoriaShortDto categoria;
 }
