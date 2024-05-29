@@ -3,6 +3,7 @@ package com.entidades.buenSabor.domain.dto.categoria;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.dto.sucursal.SucursalCreateDto;
+import com.entidades.buenSabor.domain.dto.sucursal.SucursalFullDto;
 import com.entidades.buenSabor.domain.dto.sucursal.SucursalShortDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

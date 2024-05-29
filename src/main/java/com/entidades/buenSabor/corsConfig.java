@@ -17,6 +17,7 @@ public class corsConfig {
         // Configurar los orígenes permitidos o patrones de origen permitidos
         // Por ejemplo, permitir solicitudes desde http://localhost:5173 y http://localhost:8080
         config.addAllowedOrigin("http://localhost:5173");
+        config.addAllowedOrigin("http://localhost:5174");
         config.addAllowedOrigin("http://localhost:8080");
         config.addAllowedHeader("*"); // Permitir todos los encabezados
         config.addAllowedMethod("*"); // Permitir todos los métodos HTTP (GET, POST, PUT, DELETE, etc.)

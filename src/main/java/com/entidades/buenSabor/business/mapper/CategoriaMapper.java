@@ -7,6 +7,6 @@ import com.entidades.buenSabor.domain.entities.Categoria;
 import com.entidades.buenSabor.domain.entities.Cliente;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {SucursalMapper.class})
 public interface CategoriaMapper extends BaseMapper<Categoria, CategoriaCreateDto>{
 }
