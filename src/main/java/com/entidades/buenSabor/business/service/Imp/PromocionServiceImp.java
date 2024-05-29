@@ -55,6 +55,39 @@ public class PromocionServiceImp extends BaseServiceImp<Promocion, Long> impleme
 
         return promocionPersistida;
     }
+    @Override
+    public Promocion update(Promocion request, Long id) {
+        Promocion promocion = promocionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("La promoción con id " + id + " no se ha encontrado"));
+
+        // Obtener todas las sucursales asociadas a la promoción
+        Set<Sucursal> sucursalesActuales = promocion.getSucursales();
+
+        // Eliminar las relaciones entre las sucursales y la promoción
+        for (Sucursal sucursal : sucursalesActuales) {
+            sucursal.getPromociones().remove(promocion);
+            sucursalRepository.save(sucursal); // Guardar la sucursal actualizada
+        }
+
+        // Limpiar todas las sucursales asociadas a la promoción
+        promocion.getSucursales().clear();
+
+        // Agregar las nuevas sucursales proporcionadas en la solicitud
+        Set<Sucursal> sucursales = request.getSucursales();
+        Set<Sucursal> sucursalesPersistidas = new HashSet<>();
+
+        if (sucursales != null && !sucursales.isEmpty()) {
+            for (Sucursal sucursal : sucursales) {
+                Sucursal sucursalBd = sucursalRepository.findById(sucursal.getId())
+                        .orElseThrow(() -> new RuntimeException("La sucursal con id " + sucursal.getId() + " no se ha encontrado"));
+                sucursalBd.getPromociones().add(promocion);
+                sucursalesPersistidas.add(sucursalBd);
+            }
+            promocion.setSucursales(sucursalesPersistidas);
+        }
+
+        return super.update(request, id);
+    }
 
 
     @Override
