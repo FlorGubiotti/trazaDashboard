@@ -3,21 +3,17 @@ package com.entidades.buenSabor.business.service.Imp;
 import com.entidades.buenSabor.business.service.Base.BaseServiceImp;
 import com.entidades.buenSabor.business.service.CloudinaryService;
 import com.entidades.buenSabor.business.service.PromocionService;
-import com.entidades.buenSabor.domain.entities.ImagenEmpresa;
-import com.entidades.buenSabor.domain.entities.ImagenPromocion;
-import com.entidades.buenSabor.domain.entities.ImagenSucursal;
-import com.entidades.buenSabor.domain.entities.Promocion;
+import com.entidades.buenSabor.domain.entities.*;
 import com.entidades.buenSabor.repositories.ImagenPromocionRepository;
+import com.entidades.buenSabor.repositories.PromocionRepository;
+import com.entidades.buenSabor.repositories.SucursalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PromocionServiceImp extends BaseServiceImp<Promocion, Long> implements PromocionService {
@@ -25,6 +21,41 @@ public class PromocionServiceImp extends BaseServiceImp<Promocion, Long> impleme
     ImagenPromocionRepository imagenPromocionRepository;
     @Autowired
     private CloudinaryService cloudinaryService;
+
+    @Autowired
+    PromocionRepository promocionRepository;
+
+    @Autowired
+    SucursalRepository sucursalRepository;
+
+    @Override
+    public Promocion create(Promocion request) {
+        // Guardar la instancia de Promocion en la base de datos para asegurarse de que esté gestionada por el EntityManager
+        Promocion promocionPersistida = promocionRepository.save(request);
+
+        Set<Sucursal> sucursales = promocionPersistida.getSucursales();
+        Set<Sucursal> sucursalesPersistidas = new HashSet<>();
+
+        // Verificar y asociar sucursales existentes
+        if (sucursales != null && !sucursales.isEmpty()) {
+            for (Sucursal sucursal : sucursales) {
+                // Verificar si la sucursal existe en la base de datos
+                Optional<Sucursal> optionalSucursal = sucursalRepository.findById(sucursal.getId());
+                if (optionalSucursal.isPresent()) {
+                    Sucursal sucursalBd = optionalSucursal.get();
+                    sucursalBd.getPromociones().add(promocionPersistida); // Asociar la promoción a la sucursal
+                    sucursalesPersistidas.add(sucursalBd);
+                } else {
+                    throw new RuntimeException("La sucursal con id " + sucursal.getId() + " no se ha encontrado");
+                }
+            }
+            promocionPersistida.setSucursales(sucursalesPersistidas); // Establecer las sucursales asociadas a la promoción
+            promocionRepository.save(promocionPersistida); // Guardar la promoción actualizada con las sucursales asociadas
+        }
+
+        return promocionPersistida;
+    }
+
 
     @Override
     public ResponseEntity<List<Map<String, Object>>> getAllImagesByPromocionId(Long id) {
