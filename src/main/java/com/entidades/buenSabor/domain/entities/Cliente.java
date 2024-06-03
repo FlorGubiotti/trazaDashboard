@@ -7,7 +7,6 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +16,7 @@ import java.util.Set;
 @Getter
 @ToString
 @SuperBuilder
-//@Audited
+@Audited
 public class Cliente extends Base{
 
     private String nombre;
@@ -26,7 +25,7 @@ public class Cliente extends Base{
     private String email;
 
     @OneToOne
-    private UsuarioCliente usuario;
+    private Usuario usuario;
 
     @OneToOne
     @NotAudited

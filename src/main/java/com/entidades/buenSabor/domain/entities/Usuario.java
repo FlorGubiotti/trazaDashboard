@@ -1,8 +1,10 @@
 package com.entidades.buenSabor.domain.entities;
 
+import com.entidades.buenSabor.domain.enums.Rol;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.envers.Audited;
 
 @Entity
 @AllArgsConstructor
@@ -11,10 +13,10 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString
 @SuperBuilder
-//@Audited
-public class UsuarioCliente extends Base{
+@Audited
+public class Usuario extends Base{
     private String auth0Id;
-    private String userName;
-
-
+    private String username;
+    private String email;
+    private Rol rol;
 }
