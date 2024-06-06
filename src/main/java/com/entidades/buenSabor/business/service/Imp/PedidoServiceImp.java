@@ -114,7 +114,7 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
                         int stockDescontado = insumo.getStockActual() - cantidadInsumo; // Descontar el stock actual
                         if (stockDescontado <= insumo.getStockMinimo()) {
                             throw new RuntimeException("El insumo con id " + insumo.getId() + " presente en el artículo "
-                                    + manufacturado.getDenominacion() + " (id " + manufacturado.getId() + ") alcanzó el stock mínimo");
+                                    + manufacturado.getDenominacion() + " (id " + manufacturado.getId() + ") alcanzó el stock mínimo" + stockDescontado);
                         }
                         insumo.setStockActual(stockDescontado); // Asignarle al insumo, el stock descontado
                         articuloInsumoRepository.save(insumo); // Guardar cambios
