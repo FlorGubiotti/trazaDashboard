@@ -55,6 +55,9 @@ dependencies {
 	implementation 'io.github.cdimascio:dotenv-java:2.2.4'
 	// hibernate auditoria
 	implementation group: 'org.hibernate', name: 'hibernate-envers', version: '6.5.2.Final', ext: 'pom'
+	implementation('com.mercadopago:sdk-java:2.1.7') {
+		exclude group: 'org.sonatype.sisu', module: 'sisu-guice'
+	}
 
 }
 
