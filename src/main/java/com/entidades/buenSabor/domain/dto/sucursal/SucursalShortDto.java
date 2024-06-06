@@ -15,7 +15,6 @@ import java.util.Set;
 @Getter
 @Setter
 public class SucursalShortDto extends BaseDto {
-    private Long idSucursal;
     private String nombre;
     private DomicilioShortDto domicilio;
 //    private Set<ImagenDto> imagenes;
