@@ -36,33 +36,6 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
 
     @Override
     public Pedido create(Pedido request) {
-        Set<DetallePedido> detalles = request.getDetallePedidos(); // Guardar los detalles del body en un set
-        Set<DetallePedido> detallesPersistidos = new HashSet<>(); // Inicializar un set que contendrá los detalles que pasen las validaciones
-
-        if (detalles != null && !detalles.isEmpty()) {
-            double costoTotal = 0;
-            //Iterar los detalles
-            for (DetallePedido detalle : detalles) {
-                Articulo articulo = detalle.getArticulo(); // Obtener el artículo presente en el detalle
-                if (articulo == null || articulo.getId() == null) {
-                    throw new RuntimeException("El artículo del detalle no puede ser nulo");
-                }
-                // Validar que el articulo exista
-                articulo = articuloRepository.findById(detalle.getArticulo().getId())
-                        .orElseThrow(() -> new RuntimeException("El artículo con id " + detalle.getArticulo().getId() + " no se ha encontrado"));
-                detalle.setArticulo(articulo);
-                DetallePedido savedDetalle = detallePedidoRepository.save(detalle); // Guardar los detalles en la bd
-                costoTotal += calcularTotalCosto(articulo.getId(), detalle.getCantidad()); // Calcular costo total por cada iteración de detalle
-                descontarStock(articulo.getId(), detalle.getCantidad()); // Descontar el stock por cada iteración de detalle
-
-                detallesPersistidos.add(savedDetalle);
-            }
-            request.setTotalCosto(costoTotal); // Asignarle el total costo al pedido
-            request.setDetallePedidos(detallesPersistidos); // Después de la iteración, asignarle todos los detalles al pedido
-        } else {
-            throw new IllegalArgumentException("El pedido debe contener al menos un detalle");
-        }
-
         // Validar que se haya pasado una sucursal en el body
         if (request.getSucursal() == null) {
             throw new RuntimeException("No se ha asignado una sucursal al pedido");
@@ -73,11 +46,39 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
             throw new RuntimeException("La sucursal con id " + request.getSucursal().getId() + " no se ha encontrado");
         }
 
-        request.setSucursal(sucursal); // Asignar la sucursal al pedido
+        Set<DetallePedido> detalles = request.getDetallePedidos(); // Guardo los pedidoDetalle
+        Set<DetallePedido> detallesPersistidos = new HashSet<>();
 
-        request.setEstado(Estado.PENDIENTE); //Asignar el estado inicial
+        if (detalles != null && !detalles.isEmpty()) {
+            double costoTotal = 0;
+            for (DetallePedido detalle : detalles) {
+                // articulo del detalle
+                Articulo articulo = detalle.getArticulo();
+                if (articulo == null || articulo.getId() == null) {
+                    throw new RuntimeException("El artículo del detalle no puede ser nulo.");
+                }
+                // Busco el articulo por id para verificar su existencia
+                articulo = articuloRepository.findById(detalle.getArticulo().getId())
+                        .orElseThrow(() -> new RuntimeException("Artículo con id " + detalle.getArticulo().getId() + " inexistente"));
+                detalle.setArticulo(articulo);
+                // Persistencia del detalle
+                DetallePedido savedDetalle = detallePedidoRepository.save(detalle);
+                costoTotal += calcularTotalCosto(articulo.getId(), detalle.getCantidad());
+                // Descontar el stock
+                descontarStock(articulo.getId(), detalle.getCantidad());
 
-        request.setFechaPedido(LocalDate.now()); //Asignar la fecha
+                detallesPersistidos.add(savedDetalle);
+            }
+            request.setTotalCosto(costoTotal); // Total costo pedido
+            request.setDetallePedidos(detallesPersistidos); // Asignacion de detalles al pedido
+        } else {
+            throw new IllegalArgumentException("El pedido debe contener un detalle o mas.");
+        }
+
+
+        request.setSucursal(sucursal);
+
+        request.setFechaPedido(LocalDate.now());
 
         return pedidoRepository.save(request); // Guardar el nuevo pedido
     }
@@ -94,10 +95,11 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
             System.out.println("Stock después de restarle la cantidad: " + stockDescontado);
             // Validar que el stock actual no supere el mínimo
             if (stockDescontado <= insumo.getStockMinimo()) {
-                throw new RuntimeException("El insumo con id " + insumo.getId() + " alcanzó el stock mínimo: " + stockDescontado);
+                throw new RuntimeException("El insumo " + insumo.getDenominacion() + " alcanzó el stock mínimo: " + stockDescontado);
             }
-            insumo.setStockActual(stockDescontado); // Asignarle al insumo, el stock descontado
-            articuloInsumoRepository.save(insumo); // Guardar cambios
+            // Asignarle al insumo
+            insumo.setStockActual(stockDescontado);
+            articuloInsumoRepository.save(insumo); // Guardar los cambios del insumo
         } else {
             // Si no es insumo, es manufacturado
             Optional<ArticuloManufacturado> optionalManufacturado = articuloManufacturadoRepository.findById(idArticulo);
@@ -108,13 +110,15 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
                 Set<ArticuloManufacturadoDetalle> detalles = manufacturado.getArticuloManufacturadoDetalles();
 
                 if (detalles != null && !detalles.isEmpty()) {
-                    for (ArticuloManufacturadoDetalle detalle : detalles) { // Recorrer los detalles
+                    for (ArticuloManufacturadoDetalle detalle : detalles) {
                         ArticuloInsumo insumo = detalle.getArticuloInsumo();
-                        Integer cantidadInsumo = detalle.getCantidad() * cantidad; // Multiplicar la cantidad necesaria de insumo por la cantidad de manufacturados del pedido
-                        int stockDescontado = insumo.getStockActual() - cantidadInsumo; // Descontar el stock actual
+                        // Cantidad necesaria de insumo por la cantidad de manufacturados del pedido
+                        Integer cantidadInsumo = detalle.getCantidad() * cantidad;
+                        // Descontar el stock actual
+                        int stockDescontado = insumo.getStockActual() - cantidadInsumo;
                         if (stockDescontado <= insumo.getStockMinimo()) {
-                            throw new RuntimeException("El insumo con id " + insumo.getId() + " presente en el artículo "
-                                    + manufacturado.getDenominacion() + " (id " + manufacturado.getId() + ") alcanzó el stock mínimo" + stockDescontado);
+                            throw new RuntimeException("El insumo con id " + insumo.getId() + "("+ insumo.getDenominacion() +")" + " presente en el artículo "
+                                    + manufacturado.getDenominacion() + " (id " + manufacturado.getId() +") alcanzó el stock mínimo" + stockDescontado);
                         }
                         insumo.setStockActual(stockDescontado); // Asignarle al insumo, el stock descontado
                         articuloInsumoRepository.save(insumo); // Guardar cambios
@@ -130,7 +134,7 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
         // Buscar ArticuloInsumo por ID
         Optional<ArticuloInsumo> optionalInsumo = articuloInsumoRepository.findById(idArticulo);
 
-        // Si el artículo es un insumo, multiplicar el precio del insumo por la cantidad
+        // Si es un insumo, multiplicar el precio compra por la cantidad
         if (optionalInsumo.isPresent()) {
             ArticuloInsumo insumo = optionalInsumo.get();
             return insumo.getPrecioCompra() * cantidad;
@@ -139,22 +143,23 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
         // Buscar ArticuloManufacturado por ID
         Optional<ArticuloManufacturado> optionalManufacturado = articuloManufacturadoRepository.findById(idArticulo);
 
-        // Si el artículo es un manufacturado, obtener sus detalles
+        // Si es articuloManufacturado, obtener sus detalles
         if (optionalManufacturado.isPresent()) {
             ArticuloManufacturado manufacturado = optionalManufacturado.get();
             Set<ArticuloManufacturadoDetalle> detalles = manufacturado.getArticuloManufacturadoDetalles();
 
             if (detalles != null && !detalles.isEmpty()) {
                 double totalCosto = 0;
-                for (ArticuloManufacturadoDetalle detalle : detalles) { // Recorrer los detalles
-                    double precioCompraInsumo = detalle.getArticuloInsumo().getPrecioCompra(); // Obtener el precioCompra del insumo presente en el detalle
-                    double cantidadInsumo = detalle.getCantidad(); // Obtener la cantidad del insumo presente en el detalle
+                for (ArticuloManufacturadoDetalle detalle : detalles) {
+                    double precioCompraInsumo = detalle.getArticuloInsumo().getPrecioCompra();
+                    double cantidadInsumo = detalle.getCantidad();
                     totalCosto += (precioCompraInsumo * cantidadInsumo);
                 }
-                return totalCosto * cantidad; // Multiplicar por la cantidad de artículos manufacturados
+                // Multiplicar por la cantidad de artículos manufacturados
+                return totalCosto * cantidad;
             }
         }
 
-        return 0.0; // Si no se encuentra el artículo, devuelve 0.0
+        return 0.0;
     }
 }
