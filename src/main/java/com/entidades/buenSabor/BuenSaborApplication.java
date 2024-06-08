@@ -44,28 +44,6 @@ public class BuenSaborApplication {
 	CommandLineRunner init() {
 		return args -> {
 			logger.info("----------------ESTOY----FUNCIONANDO---------------------");
-			// Etapa del dashboard
-			// Crear 1 pais
-			// Crear 2 provincias para ese pais
-			// crear 2 localidades para cada provincia
-			Empresa empresaCarlos = Empresa.builder().nombre("Empresa uno").cuil(1234567L).eliminado(false)
-					.build();
-			empresaRepository.save(empresaCarlos);
-			ImagenEmpresa imagen = ImagenEmpresa.builder().eliminado(false).url("https://res.cloudinary.com/dgfbciltc/image/upload/neynstxyjh7ndh5emik5")
-					.name("Logo.png")
-					.build();
-			imagenEmpresaRepository.save(imagen);
-
-					// Crear Unidades de medida
-					UnidadMedida unidadMedidaLitros = UnidadMedida.builder().denominacion("Litros").build();
-					UnidadMedida unidadMedidaGramos = UnidadMedida.builder().denominacion("Gramos").build();
-					UnidadMedida unidadMedidaCantidad = UnidadMedida.builder().denominacion("Cantidad").build();
-					UnidadMedida unidadMedidaPorciones = UnidadMedida.builder().denominacion("Porciones").build();
-					unidadMedidaRepository.save(unidadMedidaLitros);
-					unidadMedidaRepository.save(unidadMedidaGramos);
-					unidadMedidaRepository.save(unidadMedidaCantidad);
-					unidadMedidaRepository.save(unidadMedidaPorciones);
-
 		};
 	}
 

@@ -47,6 +47,12 @@ dependencies {
 	//ENVERS
 	implementation 'org.hibernate.orm:hibernate-envers:6.4.4.Final'
 
+	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// EXCEL
+	implementation 'org.apache.poi:poi-ooxml:5.2.2'
+	implementation 'com.lowagie:itext:2.1.7'
 
 	//CLOUDINARY
 	// https://mvnrepository.com/artifact/com.cloudinary/cloudinary
@@ -55,9 +61,6 @@ dependencies {
 	implementation 'io.github.cdimascio:dotenv-java:2.2.4'
 	// hibernate auditoria
 	implementation group: 'org.hibernate', name: 'hibernate-envers', version: '6.5.2.Final', ext: 'pom'
-	implementation('com.mercadopago:sdk-java:2.1.7') {
-		exclude group: 'org.sonatype.sisu', module: 'sisu-guice'
-	}
 
 }
 

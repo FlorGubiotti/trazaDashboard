@@ -9,8 +9,12 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -30,51 +34,40 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
 
     @Override
     public Pedido create(Pedido request) {
-        // Validar que se haya pasado una sucursal en el body
         if (request.getSucursal() == null) {
             throw new RuntimeException("No se ha asignado una sucursal al pedido");
         }
-        Sucursal sucursal = sucursalRepository.getById(request.getSucursal().getId());
-        // Validar que la sucursal existe
-        if (sucursal == null) {
-            throw new RuntimeException("La sucursal con id " + request.getSucursal().getId() + " no se ha encontrado");
-        }
+        Sucursal sucursal = sucursalRepository.findById(request.getSucursal().getId())
+                .orElseThrow(() -> new RuntimeException("La sucursal con id " + request.getSucursal().getId() + " no se ha encontrado"));
 
-        Set<DetallePedido> detalles = request.getDetallePedidos(); // Guardo los pedidoDetalle
+        Set<DetallePedido> detalles = request.getDetallePedidos();
         Set<DetallePedido> detallesPersistidos = new HashSet<>();
 
         if (detalles != null && !detalles.isEmpty()) {
             double costoTotal = 0;
             for (DetallePedido detalle : detalles) {
-                // articulo del detalle
                 Articulo articulo = detalle.getArticulo();
                 if (articulo == null || articulo.getId() == null) {
                     throw new RuntimeException("El artículo del detalle no puede ser nulo.");
                 }
-                // Busco el articulo por id para verificar su existencia
                 articulo = articuloRepository.findById(detalle.getArticulo().getId())
                         .orElseThrow(() -> new RuntimeException("Artículo con id " + detalle.getArticulo().getId() + " inexistente"));
                 detalle.setArticulo(articulo);
-                // Persistencia del detalle
                 DetallePedido savedDetalle = detallePedidoRepository.save(detalle);
                 costoTotal += calcularTotalCosto(articulo, detalle.getCantidad());
-                // Descontar el stock
                 descontarStock(articulo, detalle.getCantidad());
-
                 detallesPersistidos.add(savedDetalle);
             }
-            request.setTotalCosto(costoTotal); // Total costo pedido
-            request.setDetallePedidos(detallesPersistidos); // Asignacion de detalles al pedido
+            request.setTotalCosto(costoTotal);
+            request.setDetallePedidos(detallesPersistidos);
         } else {
-            throw new IllegalArgumentException("El pedido debe contener un detalle o mas.");
+            throw new IllegalArgumentException("El pedido debe contener un detalle o más.");
         }
 
-
         request.setSucursal(sucursal);
-
         request.setFechaPedido(LocalDate.now());
 
-        return pedidoRepository.save(request); // Guardar el nuevo pedido
+        return pedidoRepository.save(request);
     }
 
     @Transactional
@@ -142,5 +135,12 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
             }
         }
         return 0.0;
+    }
+
+    @Override
+    public List<Object[]> getRankingInsumo(Instant desde, Instant hasta) {
+        ZoneId zoneId = ZoneId.systemDefault();
+
+        return pedidoRepository.getRankingInsumos(ZonedDateTime.ofInstant(desde, zoneId).toLocalDate(), ZonedDateTime.ofInstant(hasta, zoneId).toLocalDate());
     }
 }
