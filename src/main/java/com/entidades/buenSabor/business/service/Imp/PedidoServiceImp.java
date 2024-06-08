@@ -150,4 +150,18 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
 
         return pedidoRepository.getCantidadPedidosPorCliente(ZonedDateTime.ofInstant(desde, zoneId).toLocalDate(), ZonedDateTime.ofInstant(hasta, zoneId).toLocalDate());
     }
+
+    @Override
+    public List<Object[]> getIngresos(Instant desde, Instant hasta) {
+        ZoneId zoneId = ZoneId.systemDefault();
+
+        return pedidoRepository.getIngresos(ZonedDateTime.ofInstant(desde, zoneId).toLocalDate(), ZonedDateTime.ofInstant(hasta, zoneId).toLocalDate());
+    }
+
+    @Override
+    public List<Object[]> getGanancias(Instant desde, Instant hasta) {
+        ZoneId zoneId = ZoneId.systemDefault();
+
+        return pedidoRepository.getGanancias(ZonedDateTime.ofInstant(desde, zoneId).toLocalDate(), ZonedDateTime.ofInstant(hasta, zoneId).toLocalDate());
+    }
 }
