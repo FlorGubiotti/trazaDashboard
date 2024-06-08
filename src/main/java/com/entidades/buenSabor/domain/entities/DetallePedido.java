@@ -10,14 +10,19 @@ import org.hibernate.envers.Audited;
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
+@ToString(exclude = "pedido")
 @SuperBuilder
 @Audited
-public class DetallePedido extends Base{
-    private Integer cantidad;
-    private Double subTotal;
+public class DetallePedido extends Base {
 
     @ManyToOne
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedido;
+
+    @ManyToOne
+    @JoinColumn(name = "articulo_id")
     private Articulo articulo;
 
+    private Integer cantidad;
+    private Double precio;
 }

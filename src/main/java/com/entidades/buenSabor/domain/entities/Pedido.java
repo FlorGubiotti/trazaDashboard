@@ -1,6 +1,5 @@
 package com.entidades.buenSabor.domain.entities;
 
-
 import com.entidades.buenSabor.domain.enums.Estado;
 import com.entidades.buenSabor.domain.enums.FormaPago;
 import com.entidades.buenSabor.domain.enums.TipoEnvio;
@@ -19,10 +18,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString
+@ToString(exclude = "detallePedidos")
 @SuperBuilder
 @Audited
-public class Pedido extends Base{
+public class Pedido extends Base {
 
     private LocalTime horaEstimadaFinalizacion;
     private Double total;
@@ -45,11 +44,8 @@ public class Pedido extends Base{
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    //SE AGREGA EL JOIN COLUMN PARA QUE JPA NO CREE LA TABLA INTERMEDIA EN UNA RELACION ONE TO MANY
-    //DE ESTA MANERA PONE EL FOREIGN KEY 'pedido_id' EN LA TABLA DE LOS MANY
-    @JoinColumn(name = "pedido_id")
-    //SE AGREGA EL BUILDER.DEFAULT PARA QUE BUILDER NO SOBREESCRIBA LA INICIALIZACION DE LA LISTA
+    // si borro el pedido, borro el detallePedido (orphanRemoval = true)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private Set<DetallePedido> detallePedidos = new HashSet<>();
 
