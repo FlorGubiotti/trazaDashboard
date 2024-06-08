@@ -23,4 +23,12 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
             "GROUP BY dp.articulo")
     List<Object[]> getRankingInsumos(@Param("desde") LocalDate desde, @Param("hasta") LocalDate hasta);
 
+    @Query("""
+        SELECT c.email, COUNT(p) FROM Pedido p
+        JOIN p.cliente c
+        WHERE p.fechaPedido BETWEEN :desde AND :hasta
+        GROUP BY c.id
+    """)
+    List<Object[]> getCantidadPedidosPorCliente(@Param("desde") LocalDate desde, @Param("hasta") LocalDate hasta);
+
 }

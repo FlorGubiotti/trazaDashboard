@@ -47,4 +47,25 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoFullDto, L
         }
     }
 
+    @GetMapping("ranking/pedidos/cliente/excel")
+    public ResponseEntity<byte[]> downloadCantidadPedidosPorClienteExcel(@RequestParam("desde") Instant desde, @RequestParam("hasta") Instant hasta) throws SQLException {
+        try {
+            SXSSFWorkbook libroExcel = this.facade.getCantidadDePedidosPorCliente(desde, hasta);
+            // Escribir el libro de trabajo en un flujo de bytes
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            libroExcel.write(outputStream);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+            headers.setContentDispositionFormData("attachment", "datos.xlsx");
+            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+
+            return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

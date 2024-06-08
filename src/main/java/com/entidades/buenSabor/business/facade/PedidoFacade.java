@@ -11,4 +11,6 @@ public interface PedidoFacade extends BaseFacade<PedidoFullDto, Long> {
 
     SXSSFWorkbook getRankingInsumo(Instant desde, Instant hasta);
 
+    SXSSFWorkbook getCantidadDePedidosPorCliente(Instant desde, Instant hasta);
+
 }
