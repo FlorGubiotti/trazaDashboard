@@ -9,8 +9,12 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -150,5 +154,12 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
             }
         }
         return 0.0;
+    }
+
+    @Override
+    public List<Object[]> getRankingInsumo(Instant desde, Instant hasta) {
+        ZoneId zoneId = ZoneId.systemDefault();
+
+        return pedidoRepository.getRankingInsumos(ZonedDateTime.ofInstant(desde, zoneId).toLocalDate(), ZonedDateTime.ofInstant(hasta, zoneId).toLocalDate());
     }
 }

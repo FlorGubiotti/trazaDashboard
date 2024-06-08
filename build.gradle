@@ -50,6 +50,10 @@ dependencies {
 	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
+	// EXCEL
+	implementation 'org.apache.poi:poi-ooxml:5.2.2'
+	implementation 'com.lowagie:itext:2.1.7'
+
 	//CLOUDINARY
 	// https://mvnrepository.com/artifact/com.cloudinary/cloudinary
 	implementation 'com.cloudinary:cloudinary-http44:1.36.0'
