@@ -32,12 +32,6 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
     @Autowired
     SucursalRepository sucursalRepository;
 
-    @Autowired
-    ArticuloInsumoRepository articuloInsumoRepository;
-
-    @Autowired
-    ArticuloManufacturadoRepository articuloManufacturadoRepository;
-
     @Override
     public Pedido create(Pedido request) {
         if (request.getSucursal() == null) {
@@ -79,7 +73,7 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
     @Transactional
     public Articulo descontarStock(Articulo articulo, int cantidad) {
         if (articulo instanceof ArticuloInsumo) {
-            // Cast the articulo to ArticuloInsumo
+
             ArticuloInsumo insumo = (ArticuloInsumo) articulo;
             System.out.println("Stock antes de descontar: " + insumo.getStockActual());
             int stockDescontado = insumo.getStockActual() - cantidad; // Descontar cantidad a stock actual
@@ -122,12 +116,10 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
     }
 
     public Double calcularTotalCosto(Articulo articulo, Integer cantidad) {
-        if (articulo instanceof ArticuloInsumo) {
-            // Cast the articulo to ArticuloInsumo
+        if (articulo instanceof ArticuloInsumo) { // verifico si es articuloInsumo
             ArticuloInsumo insumo = (ArticuloInsumo) articulo;
             return insumo.getPrecioCompra() * cantidad;
-        } else if (articulo instanceof ArticuloManufacturado) {
-            // Cast the articulo to ArticuloManufacturado
+        } else if (articulo instanceof ArticuloManufacturado) { //verifico si es articuloManufacturado
             ArticuloManufacturado manufacturado = (ArticuloManufacturado) articulo;
             Set<ArticuloManufacturadoDetalle> detalles = manufacturado.getArticuloManufacturadoDetalles();
 
@@ -150,5 +142,12 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
         ZoneId zoneId = ZoneId.systemDefault();
 
         return pedidoRepository.getRankingInsumos(ZonedDateTime.ofInstant(desde, zoneId).toLocalDate(), ZonedDateTime.ofInstant(hasta, zoneId).toLocalDate());
+    }
+
+    @Override
+    public List<Object[]> getCantidadPedidosPorCliente(Instant desde, Instant hasta) {
+        ZoneId zoneId = ZoneId.systemDefault();
+
+        return pedidoRepository.getCantidadPedidosPorCliente(ZonedDateTime.ofInstant(desde, zoneId).toLocalDate(), ZonedDateTime.ofInstant(hasta, zoneId).toLocalDate());
     }
 }

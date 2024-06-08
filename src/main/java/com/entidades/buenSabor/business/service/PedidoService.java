@@ -11,5 +11,6 @@ import java.util.List;
 public interface PedidoService extends BaseService<Pedido, Long> {
 
     List<Object[]> getRankingInsumo(Instant desde, Instant hasta);
+    List<Object[]> getCantidadPedidosPorCliente(Instant desde, Instant hasta);
 
 }

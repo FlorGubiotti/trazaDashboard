@@ -70,4 +70,43 @@ public class PedidoFacadeImp extends BaseFacadeImp<Pedido, PedidoFullDto, Long> 
         return libro;
     }
 
+    public SXSSFWorkbook getCantidadDePedidosPorCliente(Instant desde, Instant hasta) {
+
+        // Se crea el libro
+        SXSSFWorkbook libro = new SXSSFWorkbook(50); //importante !! el 50 indica el tamaño de paginación
+        // Se crea una hoja dentro del libro
+        SXSSFSheet hoja = libro.createSheet();
+        //estilo
+        XSSFFont font = (XSSFFont) libro.createFont();
+        font.setBold(true);
+        XSSFCellStyle style = (XSSFCellStyle) libro.createCellStyle();
+        style.setFont(font);
+        int nroColumna = 0;
+        // Se crea una fila dentro de la hoja
+        SXSSFRow row = hoja.createRow(0);
+        // Se crea una celda dentro de la fila
+        SXSSFCell cell = row.createCell(nroColumna);
+        cell.setCellValue("EmailCliente");
+        cell.setCellStyle(style);
+        cell = row.createCell(++nroColumna);
+        cell.setCellValue("Cantidad");
+        cell.setCellStyle(style);
+
+        int nroFila = 1;
+        nroColumna = 0;
+        List<Object[]> rankingArticulos = this.pedidoService.getCantidadPedidosPorCliente(desde, hasta);
+        if(rankingArticulos != null){
+            for (Object[] object : rankingArticulos) {
+                nroColumna = 0;
+                row = hoja.createRow(nroFila);
+                ++nroFila;
+                cell = row.createCell(nroColumna);
+                cell.setCellValue(((String) object[0]));
+                cell = row.createCell(++nroColumna);
+                cell.setCellValue(((Long)object[1]));
+            }
+        }
+        return libro;
+    }
+
 }
