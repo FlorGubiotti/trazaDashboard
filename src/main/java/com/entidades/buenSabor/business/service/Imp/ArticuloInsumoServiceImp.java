@@ -3,9 +3,7 @@ package com.entidades.buenSabor.business.service.Imp;
 import com.entidades.buenSabor.business.service.ArticuloInsumoService;
 import com.entidades.buenSabor.business.service.Base.BaseServiceImp;
 import com.entidades.buenSabor.business.service.CloudinaryService;
-import com.entidades.buenSabor.domain.entities.ArticuloInsumo;
-import com.entidades.buenSabor.domain.entities.ImagenArticulo;
-import com.entidades.buenSabor.domain.entities.ImagenEmpresa;
+import com.entidades.buenSabor.domain.entities.*;
 import com.entidades.buenSabor.repositories.ImagenArticuloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ArticuloInsumoServiceImp extends BaseServiceImp<ArticuloInsumo, Long> implements ArticuloInsumoService {
@@ -25,6 +20,33 @@ public class ArticuloInsumoServiceImp extends BaseServiceImp<ArticuloInsumo, Lon
 
     @Autowired
     private CloudinaryService cloudinaryService; // Servicio para interactuar con Cloudinary
+    @Override
+    public ResponseEntity<Number> descontarStock(ArticuloInsumo articuloInsumo, Integer cantidad) {
+        try {
+            // Obtener el insumo del artículo
+            ArticuloInsumo insumo = articuloInsumo;
+
+            // Descontar la cantidad del stock actual
+            int stockDescontado = insumo.getStockActual() - cantidad;
+
+//            // Validar que el stock actual no supere el mínimo
+//            if (stockDescontado < insumo.getStockMinimo()) {
+//                throw new RuntimeException("El insumo " + insumo.getDenominacion() + " alcanzó el stock mínimo: " + stockDescontado);
+//            }
+
+            // Asignar el nuevo stock al insumo
+            insumo.setStockActual(stockDescontado);
+
+            // Retornar el stock actualizado
+            return ResponseEntity.ok(stockDescontado);
+        } catch (Exception e) {
+            // En caso de error, imprimir la excepción y retornar un mensaje de error
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+
     @Override
     public ResponseEntity<List<Map<String, Object>>> getAllImagesByInsumoId(Long id) {
         try {
