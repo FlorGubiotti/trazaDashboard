@@ -7,6 +7,7 @@ import com.entidades.buenSabor.business.service.ArticuloInsumoService;
 import com.entidades.buenSabor.business.service.Base.BaseService;
 import com.entidades.buenSabor.domain.dto.articuloInsumo.ArticuloInsumoFullDto;
 import com.entidades.buenSabor.domain.entities.ArticuloInsumo;
+import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,9 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
     @Override
     public ResponseEntity<String> deleteImage(String publicId, Long id) {
         return articuloInsumoService.deleteImage(publicId, id);
+    }
+    @Override
+    public ResponseEntity<Number> descontarStock(ArticuloInsumo articuloInsumo, Integer cantidad) {
+        return articuloInsumoService.descontarStock(articuloInsumo, cantidad);
     }
 }

@@ -4,9 +4,14 @@ import com.entidades.buenSabor.business.facade.Imp.ArticuloManufacturadoFacadeIm
 import com.entidades.buenSabor.domain.dto.articuloManufacturado.ArticuloManufacturadoFullDto;
 import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
+import com.entidades.buenSabor.repositories.ArticuloManufacturadoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/articuloManufacturado")

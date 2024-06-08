@@ -2,6 +2,7 @@ package com.entidades.buenSabor.business.service;
 
 import com.entidades.buenSabor.business.service.Base.BaseService;
 import com.entidades.buenSabor.domain.entities.ArticuloInsumo;
+import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,4 +17,6 @@ public interface ArticuloInsumoService extends BaseService<ArticuloInsumo, Long>
     ResponseEntity<String> uploadImages(MultipartFile[] files, Long id);
     // Método para eliminar una imagen por su identificador público y Long
     ResponseEntity<String> deleteImage(String publicId, Long id);
+    ResponseEntity<Number> descontarStock(ArticuloInsumo articuloInsumo, Integer cantidad);
+
 }

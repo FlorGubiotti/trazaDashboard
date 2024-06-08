@@ -36,4 +36,7 @@ public class ArticuloManufacturadoFacadeImp extends BaseFacadeImp<ArticuloManufa
     public ResponseEntity<String> deleteImage(String publicId, Long id) {
         return articuloManufacturadoService.deleteImage(publicId, id);
     }
+
+
+
 }

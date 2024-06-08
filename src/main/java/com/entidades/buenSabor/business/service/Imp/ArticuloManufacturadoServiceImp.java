@@ -3,19 +3,16 @@ package com.entidades.buenSabor.business.service.Imp;
 import com.entidades.buenSabor.business.service.ArticuloManufacturadoService;
 import com.entidades.buenSabor.business.service.Base.BaseServiceImp;
 import com.entidades.buenSabor.business.service.CloudinaryService;
-import com.entidades.buenSabor.domain.entities.ArticuloManufacturado;
-import com.entidades.buenSabor.domain.entities.ImagenArticulo;
+import com.entidades.buenSabor.domain.entities.*;
 import com.entidades.buenSabor.repositories.ImagenArticuloRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManufacturado, Long> implements ArticuloManufacturadoService {
@@ -23,6 +20,7 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
     ImagenArticuloRepository imagenArticuloRepository;
     @Autowired
     private CloudinaryService cloudinaryService; // Servicio para interactuar con Cloudinary
+
     @Override
     public ResponseEntity<List<Map<String, Object>>> getAllImagesByArticuloManufacturadoId(Long id) {
         try {
