@@ -31,4 +31,9 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
     """)
     List<Object[]> getCantidadPedidosPorCliente(@Param("desde") LocalDate desde, @Param("hasta") LocalDate hasta);
 
+    @Query("SELECT CONCAT(DAY (p.fechaPedido), '-', MONTH (p.fechaPedido), '-', YEAR(p.fechaPedido)) , SUM(p.total) FROM Pedido p GROUP BY p.fechaPedido")
+    List<Object[]> getIngresos(@Param("desde") LocalDate desde, @Param("hasta") LocalDate hasta);
+
+    @Query("SELECT CONCAT(DAY (p.fechaPedido), '-', MONTH (p.fechaPedido), '-', YEAR(p.fechaPedido)) , SUM(p.total) - SUM(p.totalCosto) FROM Pedido p GROUP BY p.fechaPedido")
+    List<Object[]> getGanancias(@Param("desde") LocalDate desde, @Param("hasta") LocalDate hasta);
 }
