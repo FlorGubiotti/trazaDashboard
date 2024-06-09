@@ -55,5 +55,5 @@ public class Pedido extends Base{
 
     @ManyToOne
     @JoinColumn(name = "empleado_id")
-    private Empleado empleado;
+    private Usuario usuario;
 }

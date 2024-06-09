@@ -20,10 +20,10 @@ public class Empleado extends Base{
 
     private Rol tipoEmpleado;
 
-    @OneToMany(mappedBy = "empleado", cascade = CascadeType.REFRESH, orphanRemoval = true)
-    @ToString.Exclude
-    @Builder.Default
-    private Set<Pedido> pedidos= new HashSet<>();
+//    @OneToMany(mappedBy = "empleado", cascade = CascadeType.REFRESH, orphanRemoval = true)
+//    @ToString.Exclude
+//    @Builder.Default
+//    private Set<Pedido> pedidos= new HashSet<>();
 
     @ManyToOne
     @ToString.Exclude
