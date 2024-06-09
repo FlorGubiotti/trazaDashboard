@@ -22,10 +22,5 @@ public class PreferenceMP implements Serializable {
     private Long idPedido;
     private int statusCode;
     private OffsetDateTime fechaCreacion;
-    private OffsetDateTime fechaExpiracion;
     private BigDecimal total;
-    private String payerEmail;
-    private String payerName;
-    private String payerSurname;
-    private String paymentMethods;
 }
