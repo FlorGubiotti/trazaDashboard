@@ -54,6 +54,6 @@ public class Pedido extends Base{
     private Set<DetallePedido> detallePedidos = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "empleado_id")
-    private Empleado empleado;
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }
