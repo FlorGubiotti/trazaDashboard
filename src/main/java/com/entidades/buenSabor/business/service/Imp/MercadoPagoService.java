@@ -64,24 +64,11 @@ public class MercadoPagoService {
             // Información adicional
             // Asignar fechas
             mpPreference.setFechaCreacion(preference.getDateCreated());
-            mpPreference.setFechaExpiracion(preference.getDateOfExpiration());
 
             mpPreference.setTotal(preference.getItems().stream()
                     .map(PreferenceItem::getUnitPrice)
                     .reduce(BigDecimal.ZERO, BigDecimal::add));
 
-            if (preference.getPayer() != null) {
-                mpPreference.setPayerEmail(preference.getPayer().getEmail());
-                mpPreference.setPayerName(preference.getPayer().getName());
-                mpPreference.setPayerSurname(preference.getPayer().getSurname());
-            }
-
-            // Ajustar manejo de payment methods
-            PreferencePaymentMethods paymentMethods = preference.getPaymentMethods();
-            if (paymentMethods != null) {
-                String methods = ""; // Agrega lógica para extraer métodos si es necesario
-                mpPreference.setPaymentMethods(methods);
-            }
             preferenceMPRepository.save(mpPreference);
             return mpPreference;
 
