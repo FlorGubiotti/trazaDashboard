@@ -32,7 +32,7 @@ public class Pedido extends Base{
     private FormaPago formaPago;
     private LocalDate fechaPedido;
 
-    @ManyToOne
+    @OneToOne
     private Domicilio domicilio;
 
     @ManyToOne
@@ -40,6 +40,7 @@ public class Pedido extends Base{
 
     @OneToOne
     private Factura factura;
+
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -56,4 +57,6 @@ public class Pedido extends Base{
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+
 }
