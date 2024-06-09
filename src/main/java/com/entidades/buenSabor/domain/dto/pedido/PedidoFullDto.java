@@ -1,8 +1,11 @@
 package com.entidades.buenSabor.domain.dto.pedido;
 
 import com.entidades.buenSabor.domain.dto.BaseDto;
+import com.entidades.buenSabor.domain.dto.cliente.ClienteFullDto;
 import com.entidades.buenSabor.domain.dto.detallePedido.DetallePedidoFullDto;
 import com.entidades.buenSabor.domain.dto.sucursal.SucursalShortDto;
+import com.entidades.buenSabor.domain.dto.usuarioCliente.UsuarioDto;
+import com.entidades.buenSabor.domain.dto.usuarioEmpleado.UsuarioEmpleadoFullDto;
 import com.entidades.buenSabor.domain.entities.Cliente;
 import com.entidades.buenSabor.domain.entities.DetallePedido;
 import com.entidades.buenSabor.domain.entities.Factura;
@@ -36,5 +39,6 @@ public class PedidoFullDto extends BaseDto {
     private Set<DetallePedidoFullDto> detallePedidos;
 //    private Factura factura;
     private SucursalShortDto sucursal;
-//    private Cliente cliente;
+    private ClienteFullDto cliente;
+    private UsuarioDto empleado;
 }
