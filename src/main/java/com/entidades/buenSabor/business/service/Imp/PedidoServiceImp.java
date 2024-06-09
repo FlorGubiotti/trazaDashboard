@@ -32,6 +32,8 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
     @Autowired
     SucursalRepository sucursalRepository;
 
+    @Autowired
+    DomicilioRepository domicilioRepository;
     @Override
     public Pedido create(Pedido request) {
         if (request.getSucursal() == null) {
@@ -39,6 +41,11 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
         }
         Sucursal sucursal = sucursalRepository.findById(request.getSucursal().getId())
                 .orElseThrow(() -> new RuntimeException("La sucursal con id " + request.getSucursal().getId() + " no se ha encontrado"));
+
+        var domicilio = request.getDomicilio();
+        if(domicilio != null){
+            domicilio = domicilioRepository.save(domicilio);
+        }
 
         Set<DetallePedido> detalles = request.getDetallePedidos();
         Set<DetallePedido> detallesPersistidos = new HashSet<>();
@@ -64,6 +71,7 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
             throw new IllegalArgumentException("El pedido debe contener un detalle o más.");
         }
 
+        request.setDomicilio(domicilio);
         request.setSucursal(sucursal);
         request.setFechaPedido(LocalDate.now());
 
