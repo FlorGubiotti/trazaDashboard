@@ -16,5 +16,6 @@ public interface PedidoFacade extends BaseFacade<PedidoFullDto, Long> {
     SXSSFWorkbook getCantidadDePedidosPorCliente(Instant desde, Instant hasta);
 
     Pedido cambiarEstado(Long pedidoId, Estado nuevoEstado);
+    List<PedidoFullDto> findByClienteId(Long clienteId);
 
 }

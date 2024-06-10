@@ -1,10 +1,13 @@
 package com.entidades.buenSabor.presentation.rest;
 
 import com.entidades.buenSabor.business.facade.Imp.PedidoFacadeImp;
+import com.entidades.buenSabor.business.facade.PedidoFacade;
+import com.entidades.buenSabor.business.service.PedidoService;
 import com.entidades.buenSabor.domain.dto.pedido.PedidoFullDto;
 import com.entidades.buenSabor.domain.entities.Pedido;
 import com.entidades.buenSabor.domain.enums.Estado;
 import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,14 +22,24 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.Instant;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pedido")
 @CrossOrigin("*")
 public class PedidoController extends BaseControllerImp<Pedido, PedidoFullDto, Long, PedidoFacadeImp> {
-
+    @Autowired
+    private PedidoFacade pedidoFacade;
     public PedidoController(PedidoFacadeImp facade) {super (facade); }
-
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<List<PedidoFullDto>> getPedidosByCliente(@PathVariable Long clienteId) {
+        List<PedidoFullDto> pedidos = pedidoFacade.findByClienteId(clienteId);
+        if (pedidos != null && !pedidos.isEmpty()) {
+            return ResponseEntity.ok(pedidos);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
     @GetMapping("ranking/insumos/excel")
     public ResponseEntity<byte[]> downloadRankingInsumosExcel(@RequestParam("desde") Instant desde, @RequestParam("hasta") Instant hasta) throws SQLException {
         try {

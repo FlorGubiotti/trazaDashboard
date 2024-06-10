@@ -1,7 +1,9 @@
 package com.entidades.buenSabor.business.service.Imp;
 
+import com.entidades.buenSabor.business.mapper.PedidoMapper;
 import com.entidades.buenSabor.business.service.Base.BaseServiceImp;
 import com.entidades.buenSabor.business.service.PedidoService;
+import com.entidades.buenSabor.domain.dto.pedido.PedidoFullDto;
 import com.entidades.buenSabor.domain.entities.*;
 import com.entidades.buenSabor.domain.enums.Estado;
 import com.entidades.buenSabor.repositories.*;
@@ -34,6 +36,15 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
 
     @Autowired
     DomicilioRepository domicilioRepository;
+
+    @Autowired
+    private PedidoMapper pedidoMapper;
+
+    public List<PedidoFullDto> findByClienteId(Long clienteId) {
+        List<Pedido> pedidos = this.pedidoRepository.findByClienteId(clienteId);
+        return pedidoMapper.pedidosToPedidoFullDtos(pedidos);
+    }
+
     @Override
     public Pedido create(Pedido request) {
         if (request.getSucursal() == null) {

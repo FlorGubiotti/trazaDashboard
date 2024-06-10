@@ -7,6 +7,7 @@ import com.entidades.buenSabor.business.service.Base.BaseService;
 import com.entidades.buenSabor.business.service.PedidoService;
 import com.entidades.buenSabor.domain.dto.pedido.PedidoFullDto;
 import com.entidades.buenSabor.domain.entities.Articulo;
+import com.entidades.buenSabor.domain.entities.Cliente;
 import com.entidades.buenSabor.domain.entities.DetallePedido;
 import com.entidades.buenSabor.domain.entities.Pedido;
 import com.entidades.buenSabor.domain.enums.Estado;
@@ -17,6 +18,7 @@ import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -25,9 +27,12 @@ import java.util.List;
 
 @Service
 public class PedidoFacadeImp extends BaseFacadeImp<Pedido, PedidoFullDto, Long> implements PedidoFacade {
+    @Autowired
 
     private PedidoService pedidoService;
-
+    public List<PedidoFullDto> findByClienteId(Long idCliente) {
+        return this.pedidoService.findByClienteId(idCliente);
+    }
     public PedidoFacadeImp(BaseService<Pedido, Long> baseService, BaseMapper<Pedido, PedidoFullDto> baseMapper, PedidoService pedidoService) {
         super(baseService, baseMapper);
         this.pedidoService = pedidoService;

@@ -1,6 +1,8 @@
 package com.entidades.buenSabor.repositories;
 
+import com.entidades.buenSabor.domain.dto.pedido.PedidoFullDto;
 import com.entidades.buenSabor.domain.entities.Articulo;
+import com.entidades.buenSabor.domain.entities.Cliente;
 import com.entidades.buenSabor.domain.entities.Pedido;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,4 +38,8 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
 
     @Query("SELECT CONCAT(DAY (p.fechaPedido), '-', MONTH (p.fechaPedido), '-', YEAR(p.fechaPedido)) , SUM(p.total) - SUM(p.totalCosto) FROM Pedido p GROUP BY p.fechaPedido")
     List<Object[]> getGanancias(@Param("desde") LocalDate desde, @Param("hasta") LocalDate hasta);
+
+    @Query("SELECT p FROM Pedido p WHERE p.cliente.id = :clienteId")
+    List<Pedido> findByClienteId(@Param("clienteId") Long clienteId);
+
 }
