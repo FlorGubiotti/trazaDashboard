@@ -3,6 +3,7 @@ package com.entidades.buenSabor.business.service;
 import com.entidades.buenSabor.business.service.Base.BaseService;
 import com.entidades.buenSabor.domain.entities.DetallePedido;
 import com.entidades.buenSabor.domain.entities.Pedido;
+import com.entidades.buenSabor.domain.enums.Estado;
 import com.entidades.buenSabor.repositories.PedidoRepository;
 
 import java.time.Instant;
@@ -15,4 +16,5 @@ public interface PedidoService extends BaseService<Pedido, Long> {
     List<Object[]> getIngresos(Instant desde, Instant hasta);
     List<Object[]> getGanancias(Instant desde, Instant hasta);
 
+    Pedido cambiarEstado(Long pedidoId, Estado nuevoEstado);
 }
