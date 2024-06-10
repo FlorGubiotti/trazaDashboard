@@ -172,4 +172,11 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido, Long> implements Pe
 
         return pedidoRepository.getGanancias(ZonedDateTime.ofInstant(desde, zoneId).toLocalDate(), ZonedDateTime.ofInstant(hasta, zoneId).toLocalDate());
     }
+
+    @Override
+    public Pedido cambiarEstado(Long pedidoId, Estado nuevoEstado) {
+        Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(() -> new IllegalArgumentException("Pedido no encontrado"));
+        pedido.setEstado(nuevoEstado);
+        return pedidoRepository.save(pedido);
+    }
 }

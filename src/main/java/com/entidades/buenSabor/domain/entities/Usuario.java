@@ -25,8 +25,8 @@ public class Usuario extends Base{
     private String email;
     private Rol rol;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.REFRESH, orphanRemoval = true)
-    @ToString.Exclude
-    @Builder.Default
-    private Set<Pedido> pedidos= new HashSet<>();
+//    @OneToMany(mappedBy = "usuario", cascade = CascadeType.REFRESH, orphanRemoval = true)
+//    @ToString.Exclude
+//    @Builder.Default
+//    private Set<Pedido> pedidos= new HashSet<>();
 }
