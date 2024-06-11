@@ -13,7 +13,7 @@ public class UsuarioServiceImp extends BaseServiceImp<Usuario, Long> implements 
     @Autowired private UsuarioRepository usuarioRepository;
 
     public Usuario obtenerUsuarioPorEmail(String email) {
-        Usuario usuario = this.usuarioRepository.findUsuarioByEmail(email);
+        Usuario usuario = this.usuarioRepository.findFirstByEmail(email);
 
         if(usuario == null) {
             throw new RuntimeException("El usuario no esta registrado para operar");
