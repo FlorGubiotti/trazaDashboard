@@ -1,6 +1,7 @@
 package com.entidades.buenSabor.presentation.rest;
 
 import com.entidades.buenSabor.business.facade.Imp.PedidoFacadeImp;
+import com.entidades.buenSabor.domain.dto.pais.PaisFullDto;
 import com.entidades.buenSabor.business.facade.PedidoFacade;
 import com.entidades.buenSabor.business.service.PedidoService;
 import com.entidades.buenSabor.domain.dto.pedido.PedidoFullDto;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -28,9 +30,12 @@ import java.util.List;
 @RequestMapping("/pedido")
 @CrossOrigin("*")
 public class PedidoController extends BaseControllerImp<Pedido, PedidoFullDto, Long, PedidoFacadeImp> {
+
     @Autowired
     private PedidoFacade pedidoFacade;
+
     public PedidoController(PedidoFacadeImp facade) {super (facade); }
+
     @GetMapping("/cliente/{clienteId}")
     public ResponseEntity<List<PedidoFullDto>> getPedidosByCliente(@PathVariable Long clienteId) {
         List<PedidoFullDto> pedidos = pedidoFacade.findByClienteId(clienteId);
@@ -40,7 +45,37 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoFullDto, L
             return ResponseEntity.noContent().build();
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PedidoFullDto> getById(@PathVariable Long id){
+        return super.getById(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PedidoFullDto>> getAll() {
+        return super.getAll();
+    }
+
+    @PostMapping()
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<PedidoFullDto> create(@RequestBody PedidoFullDto entity){
+        return super.create(entity);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<PedidoFullDto> edit(@RequestBody PedidoFullDto entity, @PathVariable Long id){
+        return super.edit(entity, id);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
+        return super.deleteById(id);
+    }
+
     @GetMapping("ranking/insumos/excel")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<byte[]> downloadRankingInsumosExcel(@RequestParam("desde") Instant desde, @RequestParam("hasta") Instant hasta) throws SQLException {
         try {
             SXSSFWorkbook libroExcel = this.facade.getRankingInsumo(desde, hasta);
@@ -62,6 +97,7 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoFullDto, L
     }
 
     @GetMapping("ranking/pedidos/cliente/excel")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<byte[]> downloadCantidadPedidosPorClienteExcel(@RequestParam("desde") Instant desde, @RequestParam("hasta") Instant hasta) throws SQLException {
         try {
             SXSSFWorkbook libroExcel = this.facade.getCantidadDePedidosPorCliente(desde, hasta);
@@ -83,6 +119,7 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoFullDto, L
     }
 
     @GetMapping("ranking/ingresos/excel")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<byte[]> downloadIngresosExcel(@RequestParam("desde") Instant desde, @RequestParam("hasta") Instant hasta) throws SQLException {
         try {
             SXSSFWorkbook libroExcel = this.facade.getIngresos(desde, hasta);
@@ -104,6 +141,7 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoFullDto, L
     }
 
     @GetMapping("ranking/ganancias/excel")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<byte[]> downloadGananciasExcel(@RequestParam("desde") Instant desde, @RequestParam("hasta") Instant hasta) throws SQLException {
         try {
             SXSSFWorkbook libroExcel = this.facade.getGanancias(desde, hasta);
@@ -125,6 +163,7 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoFullDto, L
     }
 
     @PutMapping("/{pedidoId}/estado")
+    @PreAuthorize("hasAnyAuthority('CAJERO', 'ADMIN', 'COCINERO')")
     public ResponseEntity<Pedido> cambiarEstadoPedido(
             @PathVariable Long pedidoId,
             @RequestParam Estado nuevoEstado

@@ -4,6 +4,7 @@ package com.entidades.buenSabor.presentation.rest;
 import com.entidades.buenSabor.business.facade.Imp.SucursalFacadeImp;
 
 import com.entidades.buenSabor.business.service.Base.BaseServiceImp;
+import com.entidades.buenSabor.domain.dto.provincia.ProvinciaFullDto;
 import com.entidades.buenSabor.domain.dto.sucursal.SucursalFullDto;
 
 import com.entidades.buenSabor.domain.entities.Sucursal;
@@ -11,8 +12,11 @@ import com.entidades.buenSabor.presentation.rest.Base.BaseControllerImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sucursal")
@@ -25,18 +29,21 @@ public class SucursalController extends BaseControllerImp<Sucursal, SucursalFull
 
     @Override
     @PostMapping()
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SucursalFullDto> create(@RequestBody SucursalFullDto dto) {
         return ResponseEntity.ok().body(facade.createSucursal(dto));
     }
 
     @Override
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SucursalFullDto> edit(@RequestBody SucursalFullDto dto, @PathVariable Long id){
        logger.info("Editing Sucursal "+id);
        logger.info("Editing Sucursal "+dto.getId());
         return ResponseEntity.ok().body(facade.updateSucursal(id, dto));
     }
     @PostMapping("/uploads")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> uploadImages(
             @RequestParam(value = "uploads", required = true) MultipartFile[] files,
             @RequestParam(value = "id", required = true) Long idArticulo) {
@@ -50,6 +57,7 @@ public class SucursalController extends BaseControllerImp<Sucursal, SucursalFull
 
     // Método POST para eliminar imágenes por su publicId y Long
     @PostMapping("/deleteImg")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> deleteById(
             @RequestParam(value = "publicId", required = true) String publicId,
             @RequestParam(value = "id", required = true) Long id) {

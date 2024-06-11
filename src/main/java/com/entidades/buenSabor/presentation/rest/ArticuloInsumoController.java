@@ -12,9 +12,11 @@ import com.entidades.buenSabor.repositories.ArticuloManufacturadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,6 +30,35 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
 
     @Autowired
     private ArticuloInsumoService articuloInsumoService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ArticuloInsumoFullDto> getById(@PathVariable Long id){
+        return super.getById(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ArticuloInsumoFullDto>> getAll() {
+        return super.getAll();
+    }
+
+    @PostMapping()
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<ArticuloInsumoFullDto> create(@RequestBody ArticuloInsumoFullDto entity){
+        return super.create(entity);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<ArticuloInsumoFullDto> edit(@RequestBody ArticuloInsumoFullDto entity, @PathVariable Long id){
+        return super.edit(entity, id);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
+        return super.deleteById(id);
+    }
+
     @GetMapping("/descontarStock/{id}/{cantidad}")
     public ResponseEntity<Number> descontarStock(
             @PathVariable("id") Long idArticulo,
@@ -52,6 +83,7 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
     }
     // Método POST para subir imágenes
     @PostMapping("/uploads")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> uploadImages(
             @RequestParam(value = "uploads", required = true) MultipartFile[] files,
             @RequestParam(value = "id", required = true) Long idArticulo) {
@@ -65,6 +97,7 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
 
     // Método POST para eliminar imágenes por su publicId y Long
     @PostMapping("/deleteImg")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> deleteById(
             @RequestParam(value = "publicId", required = true) String publicId,
             @RequestParam(value = "id", required = true) Long id) {
